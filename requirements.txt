@@ -1,0 +1,9 @@
+# Core requirements
+requests
+
+# Testing requirements
+codecov
+pycodestyle
+isort
+pytest
+pytest-cov

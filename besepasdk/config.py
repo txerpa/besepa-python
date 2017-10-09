@@ -1,0 +1,5 @@
+__version__ = "0.0.1"
+__pypi_username__ = "paypal"
+__pypi_packagename__ = "besepasdk"
+__github_username__ = "mcanaves"
+__github_reponame__ = "Besepa-Python-SDK"
