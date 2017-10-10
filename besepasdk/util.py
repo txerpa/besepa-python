@@ -20,6 +20,16 @@ def join_url(url, *paths):
     return url
 
 
+def join_url_params(url, params):
+    """Constructs percent-encoded query string from given parms dictionary
+     and appends to given url
+    Usage::
+        >>> util.join_url_params("example.com/index.html", {"page-id": 2, "Company": "Tx Erpa"})
+        example.com/index.html?page-id=2&Company=Tx+Erpa
+    """
+    return url + "?" + urlencode(params)
+
+
 def merge_dict(data, *override):
     """
     Merges any number of dictionaries together, and returns a single dictionary
