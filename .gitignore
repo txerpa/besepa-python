@@ -1,5 +1,6 @@
 .cache
 .coverage
+__pycache__
 .git
 /*.egg-info
 /htmlcov
