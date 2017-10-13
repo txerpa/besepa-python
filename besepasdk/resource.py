@@ -20,17 +20,10 @@ class Resource(object):
         super(Resource, self).__setattr__('request_id', None)
         self.merge(attributes)
 
-    def generate_request_id(self):
-        """Generate uniq request id
-        """
-        if self.request_id is None:
-            self.request_id = str(uuid.uuid4())
-        return self.request_id
-
     def http_headers(self):
         """Generate HTTP header
         """
-        return util.merge_dict(self.header, self.headers, {'Besepa-Request-Id': self.generate_request_id()})
+        return util.merge_dict(self.header, self.headers)
 
     def __str__(self):
         return self.__data__.__str__()

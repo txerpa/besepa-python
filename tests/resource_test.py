@@ -73,16 +73,6 @@ class TestResource(object):
         resource = Resource(data)
         assert resource.to_dict() == data
 
-    def test_request_id(self):
-        data = {
-            'name': 'testing',
-            'request_id': 1234
-        }
-        resource = Resource(data)
-        assert resource.to_dict() == {'name': 'testing'}
-        assert resource.request_id, 1234
-        assert resource.http_headers(), {'Besepa-Request-Id': 1234}
-
     def test_http_headers(self):
         data = {
             'name': 'testing',
@@ -90,7 +80,7 @@ class TestResource(object):
         }
         resource = Resource(data)
         assert resource.header == {'My-Header': 'testing'}
-        assert resource.http_headers(), {'Besepa-Request-Id': resource.request_id, 'My-Header': 'testing'}
+        assert resource.http_headers() == {'My-Header': 'testing'}
 
     def test_passing_api(self):
         """
@@ -177,8 +167,7 @@ class TestCreate(object):
         resource = TestResource(attributes)
         response = resource.create()
 
-        mock.assert_called_once_with(
-            resource.api, '/', attributes, {'Besepa-Request-Id': resource.request_id})
+        mock.assert_called_once_with(resource.api, '/', attributes, {})
         assert True is response
 
 
@@ -234,8 +223,7 @@ class TestUpdate(object):
 
         response = test_resource.update({'name': 'Andrew Wiggin'})
 
-        mock.assert_called_once_with(test_resource.api, '/1', {'name': 'Andrew Wiggin'},
-                                     {'Besepa-Request-Id': test_resource.request_id})
+        mock.assert_called_once_with(test_resource.api, '/1', {'name': 'Andrew Wiggin'}, {})
         assert True is response
         assert test_resource.to_dict() == updated_attributes
 
@@ -254,8 +242,7 @@ class TestDelete(object):
 
 class TestPost(object):
     @patch('resource_test.besepa.Api.post', autospec=True)
-    @patch('besepasdk.resource.Resource.generate_request_id', return_value=1)
-    def test_post(self, mock_id, mock_post):
+    def test_post(self, mock):
         class TestResource(Post):
             path = '/'
 
@@ -266,5 +253,5 @@ class TestPost(object):
         resource = TestResource({'id': '1'})
         response = resource.test(attributes)
 
-        mock_post.assert_called_once_with(resource.api, '/1/test', attributes, {'Besepa-Request-Id': 1})
+        mock.assert_called_once_with(resource.api, '/1/test', attributes, {})
         assert True is response

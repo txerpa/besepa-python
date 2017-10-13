@@ -58,9 +58,6 @@ class Api(object):
         """
         http_headers = util.merge_dict(self.headers(), headers or {})
 
-        if http_headers.get('Besepa-Request-Id'):  # pragma: no cover
-            log.info('Besepa-Request-Id: %s' % (http_headers['Besepa-Request-Id']))
-
         try:
             return self.http_call(url, method, data=json.dumps(body), headers=http_headers)
         # Format Error message for bad request
