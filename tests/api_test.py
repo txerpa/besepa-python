@@ -8,22 +8,21 @@ import besepasdk as besepa
 
 
 @pytest.fixture
-def api_fixture():
+def api():
     import besepasdk
-    api = besepasdk.Api(api_key='dummy')
+    return besepasdk.Api(api_key='dummy')
+
+
+@pytest.fixture
+def request_mock(api):
+    api.request = Mock()
     return api
 
 
 @pytest.fixture
-def request_mock(api_fixture):
-    api_fixture.request = Mock()
-    return api_fixture
-
-
-@pytest.fixture
-def http_call_mock(api_fixture):
-    api_fixture.http_call = Mock()
-    return api_fixture
+def http_call_mock(api):
+    api.http_call = Mock()
+    return api
 
 
 class TestApi(object):
@@ -41,18 +40,13 @@ class TestApi(object):
             besepa.Api(mode='bad', api_key='dummy')
 
     @patch('besepasdk.api.requests.request', return_value=Mock)
-    def test_http_call(self, requests_mock, api_fixture):
+    def test_http_call(self, requests_mock, api):
         Response = namedtuple('Response', 'status_code reason headers content')
         requests_mock.return_value = Response(200, 'Failed', {}, 'Test'.encode())
-        api_fixture.handle_response = Mock()
-        api_fixture.http_call('https://sandbox.besepa.com/api/1/customers', 'GET')
+        api.handle_response = Mock()
+        api.http_call('https://sandbox.besepa.com/api/1/customers', 'GET')
         requests_mock.assert_called_once_with('GET', 'https://sandbox.besepa.com/api/1/customers', proxies=None)
-        api_fixture.handle_response.assert_called_once_with(requests_mock.return_value, 'Test')
-
-    def test_request(self, http_call_mock):
-        http_call_mock.request('https://sandbox.besepa.com/api/1/customers?page=1', 'GET')
-        http_call_mock.http_call.assert_called_once_with(
-            'https://sandbox.besepa.com/api/1/customers?page=1', 'GET', data='null', headers=http_call_mock.headers())
+        api.handle_response.assert_called_once_with(requests_mock.return_value, 'Test')
 
     def test_bad_request(self, http_call_mock):
         http_call_mock.http_call.side_effect = besepa.exceptions.BadRequest('error', '""')
@@ -80,17 +74,6 @@ class TestApi(object):
         assert customer.get('error') is None
         assert customer.get('id') is not None
 
-    def test_put(self, request_mock):
-        request_mock.request.return_value = {'id': 'test'}
-        customer_attributes = {'name': 'Andrew Wiggin', 'taxid': '68571053A', 'reference': 'C1'}
-
-        customer = request_mock.put('api/1/customers/1', customer_attributes)
-
-        request_mock.request.assert_called_once_with(
-            'https://sandbox.besepa.com/api/1/customers/1', 'PUT', body=customer_attributes, headers={})
-        assert customer.get('error') is None
-        assert customer.get('id') is not None
-
     def test_patch(self, request_mock):
         request_mock.request.return_value = {'id': 'test'}
         customer_attributes = {'name': 'Andrew Wiggin'}
@@ -114,11 +97,11 @@ class TestApi(object):
         with pytest.raises(besepa.ResourceNotFound):
             request_mock.get('api/1/customers/2')
 
-    def test_hanlde_response(self, api_fixture):
+    def test_hanlde_response(self, api):
         response = Mock()
         response.status_code = 200
-        assert api_fixture.handle_response(response, '""') == ""
-        assert api_fixture.handle_response(response, None) == {}
+        assert api.handle_response(response, '""') == ""
+        assert api.handle_response(response, None) == {}
 
     @pytest.mark.parametrize('code, expected_exception', [
         (301, besepa.exceptions.Redirection),
@@ -135,36 +118,29 @@ class TestApi(object):
         (500, besepa.exceptions.ServerError),
         (600, besepa.exceptions.ConnectionError),
     ])
-    def test_hanlde_response_exception(self, code, expected_exception, api_fixture):
+    def test_hanlde_response_exception(self, code, expected_exception, api):
         response = Mock()
         response.status_code = code
         with pytest.raises(expected_exception):
-            api_fixture.handle_response(response, None)
+            api.handle_response(response, None)
 
 
 def test_default_configuration():
+    default = besepa.api.__api__
     besepa.api.__api__ = None
     os.environ["BESEPA_API_KEY"] = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM"
-    api = besepa.api.default()
 
-    assert isinstance(api, besepa.Api)
-    assert api.mode == "sandbox"
-    assert api.api_key == "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM"
+    assert isinstance(besepa.api.default(), besepa.Api)
+    assert besepa.api.default().mode == "sandbox"
+    assert besepa.api.default().api_key == "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM"
+
+    del os.environ["BESEPA_API_KEY"]
+    besepa.api.__api__ = default
 
 
 def test_default_configuration_missing_api_key():
+    default = besepa.api.__api__
     besepa.api.__api__ = None
-    del os.environ["BESEPA_API_KEY"]
     with pytest.raises(besepa.exceptions.MissingConfig):
         besepa.api.default()
-
-
-def test_configuration():
-    api = besepa.configure({
-        "mode": "sandbox",
-        "api_key": "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM"
-    })
-
-    assert isinstance(api, besepa.Api)
-    assert api.mode == "sandbox"
-    assert api.api_key == "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM"
+    besepa.api.__api__ = default

@@ -155,15 +155,6 @@ class Api(object):
         """
         return self.request(util.join_url(self.endpoint, action), 'POST', body=params or {}, headers=headers or {})
 
-    def put(self, action, params=None, headers=None):
-        """Make PUT request
-
-        Usage::
-
-            >>> api.put("api/1/customers/1", {'name': 'Andrew Wiggin', 'taxid': '68571053A', 'reference: C1'})
-        """
-        return self.request(util.join_url(self.endpoint, action), 'PUT', body=params or {}, headers=headers or {})
-
     def patch(self, action, params=None, headers=None):
         """Make PATCH request
 
