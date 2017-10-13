@@ -7,3 +7,5 @@ pycodestyle
 isort
 pytest
 pytest-cov
+mock
+tox
