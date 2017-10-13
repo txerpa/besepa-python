@@ -1,4 +1,7 @@
-from unittest.mock import patch
+try:  # pragma: no cover
+    from unittest.mock import patch
+except ImportError:  # pragma: no cover
+    from mock import patch
 import besepasdk as besepa
 
 

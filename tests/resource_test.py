@@ -1,4 +1,7 @@
-from unittest.mock import patch
+try:  # pragma: no cover
+    from unittest.mock import patch
+except ImportError:  # pragma: no cover
+    from mock import patch
 
 import pytest
 
@@ -88,8 +91,9 @@ class TestResource(object):
         """
 
         class DummyAPI(object):
-            post = lambda s, *a, **k: {}
-            get = lambda s, *a, **k: {}
+            def post(self, *a, **k): pass
+
+            def get(self, *a, **k): pass
 
         api = DummyAPI()
 
@@ -120,8 +124,9 @@ class TestResource(object):
         original = api.__api__
 
         class DummyAPI(object):
-            post = lambda s, *a, **k: {}
-            get = lambda s, *a, **k: {}
+            def post(self, *a, **k): pass
+
+            def get(self, *a, **k): pass
 
         # Make default api object a dummy api object
         default = api.__api__ = DummyAPI()
@@ -163,6 +168,7 @@ class TestCreate(object):
     def test_create(self, mock):
         class TestResource(Create):
             path = '/'
+
         attributes = {'name': 'Ender Wiggin', 'taxid': '68571053A', 'reference': '1'}
         resource = TestResource(attributes)
         response = resource.create()
@@ -233,6 +239,7 @@ class TestDelete(object):
     def test_delete(self, mock):
         class TestResource(Delete):
             path = '/'
+
         test_resource = TestResource({'id': '1', 'name': 'Ender Wiggin', 'taxid': '68571053A', 'reference': '1'})
         response = test_resource.delete()
 

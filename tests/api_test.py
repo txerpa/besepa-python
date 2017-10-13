@@ -1,6 +1,9 @@
 import os
 from collections import namedtuple
-from unittest.mock import Mock, patch
+try:  # pragma: no cover
+    from unittest.mock import Mock, patch
+except ImportError:  # pragma: no cover
+    from mock import Mock, patch
 
 import pytest
 
