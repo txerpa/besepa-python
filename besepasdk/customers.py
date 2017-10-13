@@ -1,4 +1,4 @@
-from besepasdk.resource import Update, Delete, Create, Find, List
+from besepasdk.resource import Create, Delete, Find, List, Update
 
 
 class Customer(List, Find, Create, Delete, Update):

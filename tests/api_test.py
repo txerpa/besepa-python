@@ -1,13 +1,14 @@
 import os
 from collections import namedtuple
-try:  # pragma: no cover
-    from unittest.mock import Mock, patch
-except ImportError:  # pragma: no cover
-    from mock import Mock, patch
 
 import pytest
 
 import besepasdk as besepa
+
+try:  # pragma: no cover
+    from unittest.mock import Mock, patch
+except ImportError:  # pragma: no cover
+    from mock import Mock, patch
 
 
 @pytest.fixture

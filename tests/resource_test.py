@@ -6,7 +6,7 @@ except ImportError:  # pragma: no cover
 import pytest
 
 import besepasdk as besepa
-from besepasdk.resource import Resource, Find, List, Post, Create, Update, Delete
+from besepasdk.resource import Create, Delete, Find, List, Post, Resource, Update
 
 besepa.configure(api_key='dummy')
 

@@ -1,16 +1,15 @@
-from __future__ import division
-
 import datetime
-import requests
 import json
 import logging
 import os
 import platform
 import ssl
 
+import requests
+
 import besepasdk.util as util
 from besepasdk import exceptions
-from besepasdk.config import __version__, __endpoint_map__
+from besepasdk.config import __endpoint_map__, __version__
 
 log = logging.getLogger(__name__)
 

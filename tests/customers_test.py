@@ -4,7 +4,6 @@ except ImportError:  # pragma: no cover
     from mock import patch
 import besepasdk as besepa
 
-
 besepa.configure(api_key='dummy')
 
 
