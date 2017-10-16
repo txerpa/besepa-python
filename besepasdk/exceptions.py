@@ -12,7 +12,7 @@ class ConnectionError(Exception):
         if hasattr(self.response, 'reason'):
             message += " Response message: %s." % self.response.reason
         if self.content is not None:
-            message += " Error message: " + str(self.content)
+            message += " Error message: " + self.content
         return message
 
 

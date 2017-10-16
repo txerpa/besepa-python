@@ -1,3 +1,4 @@
+import json
 import os
 from collections import namedtuple
 
@@ -58,7 +59,7 @@ class TestApi(object):
         customer = http_call_mock.request('https://sandbox.besepa.com/api/1/customers', 'GET')
 
         http_call_mock.http_call.assert_called_once_with(
-            'https://sandbox.besepa.com/api/1/customers', 'GET', data='null', headers=http_call_mock.headers())
+            'https://sandbox.besepa.com/api/1/customers', 'GET', json=None, headers=http_call_mock.headers())
         assert customer.get('error') is not None
 
     def test_get(self, request_mock):
@@ -104,7 +105,7 @@ class TestApi(object):
     def test_hanlde_response(self, api):
         response = Mock()
         response.status_code = 200
-        assert api.handle_response(response, '""') == ""
+        assert api.handle_response(response, json.dumps({'response': ''})) == ""
         assert api.handle_response(response, None) == {}
 
     @pytest.mark.parametrize('code, expected_exception', [

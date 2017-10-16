@@ -173,7 +173,7 @@ class TestCreate(object):
         resource = TestResource(attributes)
         response = resource.create()
 
-        mock.assert_called_once_with(resource.api, '/', attributes, {})
+        mock.assert_called_once_with(resource.api, '/', {'testresource': attributes}, {})
         assert True is response
 
 

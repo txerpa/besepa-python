@@ -58,7 +58,7 @@ class Api(object):
         http_headers = util.merge_dict(self.headers(), headers or {})
 
         try:
-            return self.http_call(url, method, data=json.dumps(body), headers=http_headers)
+            return self.http_call(url, method, json=body, headers=http_headers)
         # Format Error message for bad request
         except exceptions.BadRequest as error:
             return {"error": json.loads(error.content)}
@@ -70,7 +70,7 @@ class Api(object):
 
         if self.mode.lower() != 'live':
             request_headers = kwargs.get("headers", {})
-            request_body = kwargs.get("data", {})
+            request_body = kwargs.get("json", {})
             log.debug("Level: " + self.mode)
             log.debug('Request: \nHeaders: %s\nBody: %s' % (str(request_headers), str(request_body)))
         else:  # pragma: no cover
@@ -86,7 +86,7 @@ class Api(object):
         if debug_id:  # pragma: no cover
             log.debug('debug_id: %s' % debug_id)
         if self.mode.lower() != 'live':  # pragma: no cover
-            log.debug('Headers: %s\nBody: %s' % (str(response.headers), str(response.content)))
+            log.debug('Headers: %s\nBody: %s' % (str(response.headers), response.content.decode('utf-8')))
 
         return self.handle_response(response, response.content.decode('utf-8'))
 
@@ -98,7 +98,7 @@ class Api(object):
         if status in (301, 302, 303, 307):
             raise exceptions.Redirection(response, content)
         elif 200 <= status <= 299:
-            return json.loads(content) if content else {}
+            return json.loads(content).get('response') if content else {}
         elif status == 400:
             raise exceptions.BadRequest(response, content)
         elif status == 401:

@@ -137,7 +137,9 @@ class Create(Resource):
             >>> customer = Customer({})
             >>> customer.create() # return True or False
         """
-        new_attributes = self.api.post(self.path, self.to_dict(), self.http_headers())
+        resource_name = self.__class__.__name__.lower()
+        payload = {resource_name: self.to_dict()}
+        new_attributes = self.api.post(self.path, payload, self.http_headers())
         self.error = None
         self.merge(new_attributes)
         return self.success()
