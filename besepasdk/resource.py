@@ -17,7 +17,6 @@ class Resource(object):
         super(Resource, self).__setattr__('error', None)
         super(Resource, self).__setattr__('headers', {})
         super(Resource, self).__setattr__('header', {})
-        super(Resource, self).__setattr__('request_id', None)
         self.merge(attributes)
 
     def http_headers(self):
@@ -36,7 +35,7 @@ class Resource(object):
 
     def __setattr__(self, name, value):
         try:
-            # Handle attributes(error, header, request_id)
+            # Handle attributes(error, header)
             super(Resource, self).__getattribute__(name)
             super(Resource, self).__setattr__(name, value)
         except AttributeError:
