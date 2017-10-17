@@ -1,4 +1,5 @@
 # Besepa SDK 
+[![Build Status](https://travis-ci.org/txerpa/besepa-python.svg?branch=master)](https://travis-ci.org/txerpa/besepa-python) [![codecov](https://codecov.io/gh/txerpa/besepa-python/branch/master/graph/badge.svg)](https://codecov.io/gh/txerpa/besepa-python) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/txerpa/besepa-python/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/txerpa/besepa-python/?branch=master)
 
 **ALPHA STAGE, dont use in production**
 
