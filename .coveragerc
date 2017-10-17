@@ -1,4 +1,11 @@
 [report]
+show_missing = True
 exclude_lines =
-    pragma: nocover
+    # Have to re-enable the standard pragma
+    pragma: no cover
+
+    # Don't complain if tests don't hit defensive assertion code:
     raise NotImplementedError
+
+    # Don't complain if non-runnable code isn't run:
+    if __name__ == .__main__.:

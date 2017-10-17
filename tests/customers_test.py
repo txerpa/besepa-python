@@ -22,10 +22,7 @@ class TestResource(object):
         response = customer.create_bank_account({'iban': 'NL33ABNA0618708937'})
 
         mock.assert_called_once_with(
-            customer.api, 'api/1/customers/1/bank_accounts',
-            {'iban': 'NL33ABNA0618708937'},
-            {}
-        )
+            customer.api, 'api/1/customers/1/bank_accounts', {'iban': 'NL33ABNA0618708937'}, {})
         assert response.error is None
 
     @patch('customers_test.besepa.Api.get', autospec=True)
