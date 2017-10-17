@@ -3,7 +3,7 @@ requests
 
 # Testing requirements
 codecov
-pycodestyle
+flake8
 isort
 pytest
 pytest-cov
