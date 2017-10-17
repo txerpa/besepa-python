@@ -14,4 +14,4 @@ fi
 
 set -x
 
-PYTHONPATH=. ${PREFIX}pytest --ignore venv --cov=besepasdk --cov=tests --cov-report=term-missing ${EXTRA_COVERAGE_FLAGS} ${@}
+PYTHONPATH=. ${PREFIX}pytest --ignore venv --cov=besepa --cov=tests --cov-report=term-missing ${EXTRA_COVERAGE_FLAGS} ${@}

@@ -4,7 +4,7 @@ from collections import namedtuple
 
 import pytest
 
-import besepasdk as besepa
+import besepa
 
 try:  # pragma: no cover
     from unittest.mock import Mock, patch
@@ -14,8 +14,8 @@ except ImportError:  # pragma: no cover
 
 @pytest.fixture
 def api():
-    import besepasdk
-    return besepasdk.Api(api_key='dummy')
+    import besepa
+    return besepa.Api(api_key='dummy')
 
 
 @pytest.fixture
@@ -44,7 +44,7 @@ class TestApi(object):
         with pytest.raises(besepa.exceptions.InvalidConfig):
             besepa.Api(mode='bad', api_key='dummy')
 
-    @patch('besepasdk.api.requests.request', return_value=Mock)
+    @patch('besepa.api.requests.request', return_value=Mock)
     def test_http_call(self, requests_mock, api):
         Response = namedtuple('Response', 'status_code reason headers content')
         requests_mock.return_value = Response(200, 'Failed', {}, 'Test'.encode())

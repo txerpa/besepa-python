@@ -5,8 +5,8 @@ except ImportError:  # pragma: no cover
 
 import pytest
 
-import besepasdk as besepa
-from besepasdk.resource import Create, Delete, Find, List, Post, Resource, Update
+import besepa
+from besepa.resource import Create, Delete, Find, List, Post, Resource, Update
 
 besepa.configure(api_key='dummy')
 
@@ -120,7 +120,7 @@ class TestResource(object):
         assert post_ret.api == api
 
     def test_default_resource(self):
-        from besepasdk import api
+        from besepa import api
         original = api.__api__
 
         class DummyAPI(object):

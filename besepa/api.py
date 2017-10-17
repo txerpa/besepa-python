@@ -7,9 +7,9 @@ import ssl
 
 import requests
 
-import besepasdk.util as util
-from besepasdk import exceptions
-from besepasdk.config import __endpoint_map__, __version__
+import besepa.util as util
+from besepa import exceptions
+from besepa.config import __endpoint_map__, __version__
 
 log = logging.getLogger(__name__)
 
@@ -25,8 +25,8 @@ class Api(object):
 
         Usage::
 
-            >>> import besepasdk
-            >>> api = besepasdk.Api(mode="sandbox", api_key='API_KEY')
+            >>> import besepa
+            >>> api = besepa.Api(mode="sandbox", api_key='API_KEY')
         """
         kwargs = util.merge_dict(options or {}, kwargs)
 

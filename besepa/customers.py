@@ -1,5 +1,5 @@
-from besepasdk import util
-from besepasdk.resource import Create, Delete, Find, List, Update, Post, Resource
+from besepa import util
+from besepa.resource import Create, Delete, Find, List, Update, Post, Resource
 
 
 class Customer(List, Find, Create, Delete, Update, Post):

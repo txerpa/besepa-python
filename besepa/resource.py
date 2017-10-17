@@ -1,7 +1,7 @@
 import uuid
 
-import besepasdk.util as util
-from besepasdk.api import default as default_api
+import besepa.util as util
+from besepa.api import default as default_api
 
 
 class Resource(object):

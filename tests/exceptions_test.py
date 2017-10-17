@@ -2,7 +2,7 @@ from collections import namedtuple
 
 import pytest
 
-from besepasdk.exceptions import *
+from besepa.exceptions import *
 
 
 @pytest.fixture

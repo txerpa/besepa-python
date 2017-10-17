@@ -1,6 +1,6 @@
 import pytest
 
-from besepasdk import util
+from besepa import util
 
 
 class TestUtil(object):
