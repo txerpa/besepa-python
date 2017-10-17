@@ -5,7 +5,9 @@ python:
   - "2.7"
   - "3.5"
   - "3.6"
-install: pip install -q tox-travis
+install:
+ - pip install -q tox-travis
+ - pip install -r requirements.txt
 matrix:
   fast_finish: true
   include:
