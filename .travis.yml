@@ -5,18 +5,11 @@ python:
   - "2.7"
   - "3.5"
   - "3.6"
-install:
- - pip install -q tox-travis
- - pip install -r requirements.txt
-matrix:
-  fast_finish: true
-  include:
-    - python: "2.7"
-      env: TOXENV="lint"
-script: tox
+install: pip install -r requirements.txt
+script: scripts/ci
 after_success:
   - pip install -q codecov scrutinizer-ocular
-  - codecov -e TOXENV,DJANGO
+  - codecov
   - ocular --data-file ".coverage" --config-file ".coveragerc"
 notifications:
   email: false
