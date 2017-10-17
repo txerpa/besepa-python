@@ -2,7 +2,6 @@
 requests
 
 # Testing requirements
-codecov
 flake8
 isort
 pytest

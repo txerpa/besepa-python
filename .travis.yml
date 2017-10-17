@@ -1,17 +1,20 @@
+sudo: false
 language: python
-
 cache: pip
-
 python:
   - "2.7"
   - "3.5"
   - "3.6"
-
-install:
-  - pip install -r requirements.txt
-
-script:
-  - scripts/ci
-
-after_script:
-  - codecov
+install: pip install -q tox-travis
+matrix:
+  fast_finish: true
+  include:
+    - python: "2.7"
+      env: TOXENV="lint"
+script: tox
+after_success:
+  - pip install -q codecov scrutinizer-ocular
+  - codecov -e TOXENV,DJANGO
+  - ocular --data-file ".coverage" --config-file ".coveragerc"
+notifications:
+  email: false
