@@ -1,5 +1,3 @@
-import uuid
-
 import besepa.util as util
 from besepa.api import default as default_api
 

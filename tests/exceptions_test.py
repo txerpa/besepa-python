@@ -2,7 +2,7 @@ from collections import namedtuple
 
 import pytest
 
-from besepa.exceptions import *
+from besepa.exceptions import MissingParam, Redirection, ResourceNotFound, UnauthorizedAccess
 
 
 @pytest.fixture

@@ -1,10 +1,9 @@
-from besepa.resource import Resource
-
 try:  # pragma: no cover
     from unittest.mock import patch
 except ImportError:  # pragma: no cover
     from mock import patch
 import besepa
+from besepa.resource import Resource
 
 besepa.configure(api_key='dummy')
 
