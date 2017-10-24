@@ -15,11 +15,11 @@ class Customer(List, Find, Create, Delete, Update, Post):
     path = "api/1/customers"
 
     def create_bank_account(self, attributes):
-        # /customers/invoices/<CUSTOMER-ID>/bank_accounts
+        # /customers/<CUSTOMER-ID>/bank_accounts
         return self.post('bank_accounts', attributes)
 
     def list_bank_accounts(self):
-        # /customers/invoices/<CUSTOMER-ID>/bank_accounts
+        # /customers/<CUSTOMER-ID>/bank_accounts
         endpoint = util.join_url(self.path, str(self['id']), 'bank_accounts')
         response = self.api.get(endpoint)
         try:
@@ -29,6 +29,10 @@ class Customer(List, Find, Create, Delete, Update, Post):
             if isinstance(response, list):
                 new_resp = [Resource(elem, api=self.api) for elem in response]
                 return new_resp
+
+    def create_debit(self, attributes):
+        # /customers/invoices/<CUSTOMER-ID>/debits
+        return self.post('debits', attributes)
 
 
 Customer.convert_resources['bank_accounts'] = Resource
