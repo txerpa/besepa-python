@@ -8,3 +8,6 @@ pytest
 pytest-cov
 mock
 tox
+
+# Dist requirements
+twine
