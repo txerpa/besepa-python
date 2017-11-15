@@ -6,22 +6,22 @@ from distutils.core import setup
 from besepa.config import __version__
 
 long_description = """
-    The Besepa SDK provides Python APIs to create, process and manage SEPA direct debits.
+    The Besepa Python provides simple python wrapper to Besepa.com's API.
 
-    1. https://github.com/txerpa/Besepa-Python-SDK - README and Samples
+    1. https://github.com/txerpa/besepa-python - README and Samples
     2. http://docs.besepaen.apiary.io - API Reference
-  """
+"""
 
 setup(
   name='besepa',
   version=__version__,
   author='Mateu Cànaves',
-  author_email='mateu.canavces@gmail.com',
+  author_email='mateu.canaves@gmail.com',
   packages=['besepa'],
   scripts=[],
-  url='https://github.com/txerpa/Besepa-Python-SDK',
+  url='https://github.com/txerpa/besepa-python',
   license='MIT',
-  description='The Besepa SDK provides Python APIs to create, process and manage SEPA direct debits.',
+  description="Simple python wrapper to Besepa.com's API.",
   long_description=long_description,
   install_requires=['requests'],
   classifiers=[

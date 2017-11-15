@@ -1,9 +1,9 @@
-# Besepa SDK 
+# Besepa Python 
 [![Build Status](https://travis-ci.org/txerpa/besepa-python.svg?branch=master)](https://travis-ci.org/txerpa/besepa-python) [![codecov](https://codecov.io/gh/txerpa/besepa-python/branch/master/graph/badge.svg)](https://codecov.io/gh/txerpa/besepa-python) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/txerpa/besepa-python/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/txerpa/besepa-python/?branch=master)
 
 **ALPHA STAGE, dont use in production**
 
-The Besepa client provides Python APIs to create, process and manage SEPA direct debits. The [Besepa APIs](http://docs.besepaen.apiary.io/) ara fully supported by the SDK.
+The Besepa Python provides simple python wrapper to Besepa.com's API. The [Besepa APIs](http://docs.besepaen.apiary.io/) ara fully supported by the SDK.
 
 
 ## Installation
