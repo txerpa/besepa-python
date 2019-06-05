@@ -1,4 +1,3 @@
-import re
 
 try:  # pragma: no cover
     from urllib.parse import urlencode
@@ -15,9 +14,9 @@ def join_url(url, *paths):
         >>> util.join_url("example.com", "index.html")
         'example.com/index.html'
     """
-    for path in paths:
-        url = re.sub(r'/?$', re.sub(r'^/?', '/', path), url)
-    return url
+    to_rstrip = [url] + list(paths[:-1])
+    parts = [path.rstrip('/') for path in to_rstrip] + [paths[-1]]
+    return "/".join(path.lstrip('/') for path in parts)
 
 
 def join_url_params(url, params):
