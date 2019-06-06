@@ -4,14 +4,27 @@ from besepa import util
 
 
 class TestUtil(object):
-    @pytest.mark.parametrize('left, right, expected', [
-        ('payment', '1', 'payment/1'),
-        ('payment/', '1', 'payment/1'),
-        ('payment', '/1', 'payment/1'),
-        ('payment/', '/1', 'payment/1'),
+    @pytest.mark.parametrize('one, two, three, expected', [
+        ('payment', '1', None, 'payment/1'),
+        ('payment/', '1', None, 'payment/1'),
+        ('payment', '/1', None, 'payment/1'),
+        ('payment/', '/1', None, 'payment/1'),
+        ('payment', '1', 'delete/', 'payment/1/delete/'),
+        ('payment/', '1', 'delete/', 'payment/1/delete/'),
+        ('payment', '/1', 'delete/', 'payment/1/delete/'),
+        ('payment/', '/1', 'delete/', 'payment/1/delete/'),
+        ('payment', '1', '/delete/', 'payment/1/delete/'),
+        ('payment/', '1', '/delete/', 'payment/1/delete/'),
+        ('payment', '/1', '/delete/', 'payment/1/delete/'),
+        ('payment/', '/1', '/delete/', 'payment/1/delete/'),
     ])
-    def test_join_url(self, left, right, expected):
-        url = util.join_url(left, right)
+    def test_join_url(self, one, two, three, expected):
+
+        parts = [one, two]
+        if three:
+            parts.append(three)
+
+        url = util.join_url(*parts)
         assert url == expected
 
     def test_join_url_params(self):

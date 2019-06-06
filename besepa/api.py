@@ -7,9 +7,8 @@ import ssl
 
 import requests
 
-import besepa.util as util
-from besepa import exceptions
-from besepa.config import __endpoint_map__, __version__
+from besepa import __version__, exceptions, util
+from besepa.config import __endpoint_map__
 
 log = logging.getLogger(__name__)
 
