@@ -5,7 +5,6 @@ requests
 flake8
 isort
 pytest
-pytest-cov
 mock
 tox
 

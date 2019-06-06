@@ -15,4 +15,4 @@ fi
 set -x
 
 # PYTHONPATH=. ${PREFIX}pytest --ignore venv --cov=besepa ${EXTRA_COVERAGE_FLAGS} ${@}
-PYTHONPATH=. ${PREFIX}pytest --ignore venv ${EXTRA_COVERAGE_FLAGS} ${@}
+PYTHONPATH=. ${PREFIX}pytest --ignore venv ${@}
